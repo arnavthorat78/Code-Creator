@@ -1,0 +1,29 @@
+{
+  "name": "code-creator",
+  "version": "1.0.0",
+  "description": "Use this handy tool for quickly making code templates to start a project!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arnavthorat78/Code-Creator.git"
+  },
+  "author": "Arnav Thorat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arnavthorat78/Code-Creator/issues"
+  },
+  "homepage": "https://github.com/arnavthorat78/Code-Creator#readme",
+  "dependencies": {
+    "chalk": "^5.0.0"
+  },
+  "bin": {
+    "code-creator": "./bin/cli.js"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^17.0.8"
+  }
+}
