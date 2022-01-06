@@ -1,6 +1,6 @@
 import chalk from "chalk";
 
-import { line } from "./functions/helpers.js";
+import { line, runProcess } from "./functions/helpers.js";
 
 /**
  * The help command to run when a user types in the `help` command.
@@ -47,6 +47,8 @@ function help() {
 +───────────────+──────────────────────────────+─────────────────────────────────────+`;
 
     console.log(table);
+
+    console.log(runProcess());
 }
 
 export default help;

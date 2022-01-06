@@ -1,3 +1,5 @@
+import chalk from "chalk";
+
 /**
  * Removes the unwanted parts of the built-in NodeJS `process.argv`.
  * 
@@ -23,4 +25,13 @@ export function args(lowerCase = false): string[] {
  */
 export function line(): string {
     return "-".repeat(process.stdout.columns);
+}
+
+/**
+ * Show grey text with the current directory that the program ran in.
+ * 
+ * @returns The running process styled with `chalk`.
+ */
+export function runProcess(): string {
+    return chalk.gray(`\nRunning in ${chalk.bold(process.cwd())}`);
 }
