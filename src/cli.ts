@@ -11,35 +11,43 @@ import help from "./help.js";
 import start from "./start.js";
 
 function normal() {
-    console.log(chalk.bold(chalk.red("Code"), chalk.green("Creator")));
+	console.log(chalk.bold(chalk.red("Code"), chalk.green("Creator")));
 
-    console.log(chalk.bold(`\nWelcome to Code Creator! Use this handy tool for quickly making code templates to start a project!`));
+	console.log(
+		chalk.bold(
+			`\nWelcome to Code Creator! Use this handy tool for quickly making code templates to start a project!`
+		)
+	);
 
-    console.log(line());
+	console.log(line());
 
-    /**
-     * Help code that can be used repeatedly.
-     */
-    const helpCode = chalk.bold.blueBright(`${chalk.green("code-creator")} help`);
-    /**
-     * Start code that can be used repeatedly.
-     */
-    const startCode = chalk.bold.blueBright(`${chalk.green("code-creator")} start ${chalk.red("<folder>")}`);
-    console.log(`To get started, try typing ${helpCode} for useful commands!\nOr even better, type ${startCode} to start a new project!`);
+	/**
+	 * Help code that can be used repeatedly.
+	 */
+	const helpCode = chalk.bold.blueBright(`${chalk.green("code-creator")} help`);
+	/**
+	 * Start code that can be used repeatedly.
+	 */
+	const startCode = chalk.bold.blueBright(
+		`${chalk.green("code-creator")} start ${chalk.red("<folder>")}`
+	);
+	console.log(
+		`To get started, try typing ${helpCode} for useful commands!\nOr even better, type ${startCode} to start a new project!`
+	);
 
-    console.log(runProcess());
+	console.log(runProcess());
 }
 
 function run() {
-    const params = args(true);
+	const params = args(true);
 
-    if (!params.length) {
-        normal();
-    } else if (params[0] === "help") {
-        help();
-    } else if (params[0] === "start") {
-        start();
-    }
+	if (!params.length) {
+		normal();
+	} else if (params[0] === "help") {
+		help();
+	} else if (params[0] === "start") {
+		start();
+	}
 }
 
 run();

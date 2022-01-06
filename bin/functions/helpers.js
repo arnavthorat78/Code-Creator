@@ -9,7 +9,7 @@ export function args(lowerCase = false) {
     const argv = process.argv;
     const [, , ...params] = argv;
     if (lowerCase) {
-        const lower = params.map(param => param.toLowerCase());
+        const lower = params.map((param) => param.toLowerCase());
         return lower;
     }
     return params;

@@ -6,38 +6,54 @@ import { line, runProcess } from "./functions/helpers.js";
  * The help command to run when a user types in the `help` command.
  */
 function help() {
-    console.log(chalk.bold(`You asked for help in ${chalk.red("Code ") + chalk.green("Creator")}, and we're giving you the commands!\n`));
+	console.log(
+		chalk.bold(
+			`You asked for help in ${
+				chalk.red("Code ") + chalk.green("Creator")
+			}, and we're giving you the commands!\n`
+		)
+	);
 
-    console.log(chalk.gray(`Key:
+	console.log(
+		chalk.gray(`Key:
     - ${chalk.green("Green")} is for a used command
     - ${chalk.red("Red")} is for popular commands
-    - ${chalk.blue("Blue")} is for other commands`));
+    - ${chalk.blue("Blue")} is for other commands`)
+	);
 
-    console.log(line());
+	console.log(line());
 
-    /**
-     * The table of commands. Looks like below:
-     * 
-     * +───────────────+──────────────────────────────+─────────────────────────────────────+
-     * | Title         | Command                      | Description                         |
-     * +───────────────+──────────────────────────────+─────────────────────────────────────+
-     * | Help          | code-creator help            | Get all of the commands available!  |
-     * | Start         | code-creator start <folder>  | Start a new project.                |
-     * | Introduction  | code-creator                 | Starting command.                   |
-     * |               |                              |                                     |
-     * |               |                              |                                     |
-     * |               |                              |                                     |
-     * |               |                              |                                     |
-     * |               |                              |                                     |
-     * |               |                              |                                     |
-     * +───────────────+──────────────────────────────+─────────────────────────────────────+
-     */
-    const table = `+───────────────+──────────────────────────────+─────────────────────────────────────+
-| ${chalk.bold("Title")}         | ${chalk.bold("Command")}                      | ${chalk.bold("Description")}                         |
+	/**
+	 * The table of commands. Looks like below:
+	 *
+	 * +───────────────+──────────────────────────────+─────────────────────────────────────+
+	 * | Title         | Command                      | Description                         |
+	 * +───────────────+──────────────────────────────+─────────────────────────────────────+
+	 * | Help          | code-creator help            | Get all of the commands available!  |
+	 * | Start         | code-creator start <folder>  | Start a new project.                |
+	 * | Introduction  | code-creator                 | Starting command.                   |
+	 * |               |                              |                                     |
+	 * |               |                              |                                     |
+	 * |               |                              |                                     |
+	 * |               |                              |                                     |
+	 * |               |                              |                                     |
+	 * |               |                              |                                     |
+	 * +───────────────+──────────────────────────────+─────────────────────────────────────+
+	 */
+	const table = `+───────────────+──────────────────────────────+─────────────────────────────────────+
+| ${chalk.bold("Title")}         | ${chalk.bold("Command")}                      | ${chalk.bold(
+		"Description"
+	)}                         |
 +───────────────+──────────────────────────────+─────────────────────────────────────+
-| ${chalk.green("Help")}          | code-creator help            | Get all of the commands available!  |
-| ${chalk.red("Start")}         | code-creator start <folder>  | Start a new project.                |
-| ${chalk.blue("Introduction")}  | code-creator                 | Starting command.                   |
+| ${chalk.green(
+		"Help"
+	)}          | code-creator help            | Get all of the commands available!  |
+| ${chalk.red(
+		"Start"
+	)}         | code-creator start <folder>  | Start a new project.                |
+| ${chalk.blue(
+		"Introduction"
+	)}  | code-creator                 | Starting command.                   |
 |               |                              |                                     |
 |               |                              |                                     |
 |               |                              |                                     |
@@ -46,9 +62,9 @@ function help() {
 |               |                              |                                     |
 +───────────────+──────────────────────────────+─────────────────────────────────────+`;
 
-    console.log(table);
+	console.log(table);
 
-    console.log(runProcess());
+	console.log(runProcess());
 }
 
 export default help;
