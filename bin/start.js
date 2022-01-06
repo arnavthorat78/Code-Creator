@@ -11,7 +11,10 @@ import chalk from "chalk";
 import ora from "ora";
 import prompts from "prompts";
 import path from "path";
+import util from "util";
+import fs from "fs";
 import { line, args } from "./functions/helpers.js";
+const readFile = util.promisify(fs.readFile);
 /**
  * This command is used to start a new project!
  */
@@ -59,14 +62,33 @@ function start() {
         const nodejs = chalk.green(`3)  ${chalk.bold("Node.js")} - A version of JavaScript, designed to run in the backend.`);
         console.log("There are multiple projects available, which one would you like?");
         console.log(`${javascript}\n${typescript}\n${nodejs}`);
+        const projects = [
+            {
+                number: 1,
+                name: "JavaScript",
+                file: "../../templates/javascript.json",
+            },
+            {
+                number: 2,
+                name: "TypeScript",
+                file: "../../templates/typescript.json",
+            },
+            {
+                number: 3,
+                name: "Node.js",
+                file: "../../templates/nodejs.json",
+            },
+        ];
         let project;
         function projectType() {
             return __awaiter(this, void 0, void 0, function* () {
                 const projectInner = yield prompts({
                     type: "number",
                     name: "project",
-                    message: `What project do you want to create? ${chalk.bold("(1-3)")}`,
-                    validate: (value) => (value < 1 || value > 3 ? `Only 1-3 is accepted` : true),
+                    message: `What project do you want to create? ${chalk.bold(`(1-${projects.length})`)}`,
+                    validate: (value) => value < 1 || value > projects.length
+                        ? `Only 1-${projects.length} is accepted`
+                        : true,
                 });
                 return projectInner.project;
             });
@@ -80,6 +102,16 @@ function start() {
             spinner: "aesthetic",
             color: "red",
         }).start();
+        const selectedProject = projects[project - 1];
+        const selectedProjectPath = path.join(process.argv[1], selectedProject.file);
+        let fileContents = null;
+        try {
+            fileContents = JSON.parse(yield readFile(selectedProjectPath, { encoding: "utf8" }));
+            console.log(fileContents);
+        }
+        catch (error) {
+            console.log(error);
+        }
     });
 }
 export default start;

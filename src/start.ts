@@ -3,8 +3,12 @@ import ora from "ora";
 import prompts from "prompts";
 
 import path from "path";
+import util from "util";
+import fs from "fs";
 
 import { line, args } from "./functions/helpers.js";
+
+const readFile = util.promisify(fs.readFile);
 
 /**
  * This command is used to start a new project!
@@ -97,13 +101,34 @@ async function start() {
 	console.log("There are multiple projects available, which one would you like?");
 	console.log(`${javascript}\n${typescript}\n${nodejs}`);
 
-	let project: prompts.Answers<"project">;
+	const projects = [
+		{
+			number: 1,
+			name: "JavaScript",
+			file: "../../templates/javascript.json",
+		},
+		{
+			number: 2,
+			name: "TypeScript",
+			file: "../../templates/typescript.json",
+		},
+		{
+			number: 3,
+			name: "Node.js",
+			file: "../../templates/nodejs.json",
+		},
+	];
+
+	let project: number;
 	async function projectType() {
 		const projectInner = await prompts({
 			type: "number",
 			name: "project",
-			message: `What project do you want to create? ${chalk.bold("(1-3)")}`,
-			validate: (value: number) => (value < 1 || value > 3 ? `Only 1-3 is accepted` : true),
+			message: `What project do you want to create? ${chalk.bold(`(1-${projects.length})`)}`,
+			validate: (value: number) =>
+				value < 1 || value > projects.length
+					? `Only 1-${projects.length} is accepted`
+					: true,
 		});
 
 		return projectInner.project;
@@ -122,6 +147,18 @@ async function start() {
 		spinner: "aesthetic",
 		color: "red",
 	}).start();
+
+	const selectedProject = projects[project - 1];
+	const selectedProjectPath = path.join(process.argv[1], selectedProject.file);
+	let fileContents = null;
+
+	try {
+		fileContents = JSON.parse(await readFile(selectedProjectPath, { encoding: "utf8" }));
+
+		console.log(fileContents);
+	} catch (error) {
+		console.log(error);
+	}
 }
 
 export default start;
