@@ -6,9 +6,10 @@ import path from "path";
 import util from "util";
 import fs from "fs";
 
-import { line, args } from "./functions/helpers.js";
+import { line, args, runProcess } from "./functions/helpers.js";
 
 const readFile = util.promisify(fs.readFile);
+const writeFile = util.promisify(fs.writeFile);
 
 /**
  * This command is used to start a new project!
@@ -142,7 +143,7 @@ async function start() {
 
 	console.log(chalk.bold("Starting creation..."));
 
-	ora({
+	const fileContentSpinner = ora({
 		text: "Loading file contents...",
 		spinner: "aesthetic",
 		color: "red",
@@ -150,15 +151,36 @@ async function start() {
 
 	const selectedProject = projects[project - 1];
 	const selectedProjectPath = path.join(process.argv[1], selectedProject.file);
-	let fileContents = null;
 
-	try {
-		fileContents = JSON.parse(await readFile(selectedProjectPath, { encoding: "utf8" }));
+	const fileContents = JSON.parse(await readFile(selectedProjectPath, { encoding: "utf8" }));
 
-		console.log(fileContents);
-	} catch (error) {
-		console.log(error);
+	fileContentSpinner.succeed();
+
+	const fileCreationSpinner = ora({
+		text: "Creating files...",
+		spinner: "aesthetic",
+		color: "yellow",
+	}).start();
+
+	if (!fs.existsSync(directory)) {
+		fs.mkdirSync(directory);
 	}
+
+	for (const file in fileContents) {
+		await writeFile(path.join(directory, file), fileContents[file]);
+	}
+
+	fileCreationSpinner.succeed();
+
+	console.log(line());
+
+	console.log(
+		`${chalk.green(
+			"Successfully created project!"
+		)} See the following path for the files: ${chalk.bold(directory)}`
+	);
+
+	console.log(runProcess());
 }
 
 export default start;
